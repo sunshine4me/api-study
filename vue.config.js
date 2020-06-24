@@ -1,6 +1,6 @@
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 module.exports = {
-    outputDir: "./config//public/home",
+    outputDir: "./lib/public",
     devServer: {
         proxy: 'http://localhost:8000'
     },
