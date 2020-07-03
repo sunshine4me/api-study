@@ -5,6 +5,9 @@ module.exports = {
     publicPath: "./",
     productionSourceMap: false,
     outputDir: "./lib/public",
+    devServer: {
+        proxy: 'http://localhost:3000'
+    },
     pages: {
         index: {
             // page 的入口

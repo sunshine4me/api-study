@@ -1,6 +1,8 @@
 <template>
   <div style="padding:20px">
-    <div id="monaco" style="height:300px"></div>
+    <div id="monaco" style="height:400px"></div>
+    <button v-on:click="run">运行</button>
+    <pre>{{log}}</pre>
   </div>
 </template>
 
@@ -9,8 +11,25 @@
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api.js";
 export default {
   methods: {
-    handleClick(row) {
-      console.log(row);
+    run() {
+      this.log = "执行中......";
+      var code = this.monacoInstance.getValue();
+      fetch("/home", {
+        method: "POST", // or 'PUT'
+        body: JSON.stringify({ code }), // data can be `string` or {object}!
+        headers: new Headers({
+          "Content-Type": "application/json"
+        })
+      })
+        .then(response => {
+          return response.text();
+        })
+        .catch(error => {
+          this.log = error + "";
+        })
+        .then(response => {
+          this.log = response;
+        });
     }
   },
   mounted() {
@@ -18,7 +37,17 @@ export default {
     const monacoInstance = monaco.editor.create(
       document.getElementById("monaco"),
       {
-        value: JSON.stringify({ a: "asdads" }),
+        theme: "vs-dark",
+        value: `const fetch = require('node-fetch');
+
+(async () => {
+    const response = await fetch('https://www.baidu.com/');
+    const body = await response.text();
+
+    console.log(body);
+
+   
+})();`,
         language: "javascript"
       }
     );
@@ -45,54 +74,21 @@ export default {
         }
       }
     });
-
     window.monacoInstance = monacoInstance;
+    this.monacoInstance = monacoInstance;
     // monacoInstance.dispose(); //使用完成销毁实例
   },
   data() {
     return {
-      tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1517 弄",
-          zip: 200333
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1519 弄",
-          zip: 200333
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1516 弄",
-          zip: 200333
-        }
-      ]
+      log: ""
     };
   }
 };
 </script>
 
 <style scoped>
-.el-table td,
-.el-table th {
-  padding: 2px 0;
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 </style>
