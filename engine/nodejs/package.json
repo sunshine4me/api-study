@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build": "docker build -t sunshine4me/node_engine ."
+    "build": "docker build -t sunshine4me/node_engine .",
+    "clear": "docker rmi $(docker images -q -f dangling=true)"
   },
   "keywords": [],
   "author": "",
