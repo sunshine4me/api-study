@@ -10,12 +10,12 @@ node/12.18.1
 Docker version 19.03.8
 
 ### 构建运行
-```
-<!-- 构建node docker 环境-->
+```shell
+# 构建node docker 环境 
 npm run buildDocker
-<!-- 打包前端页面-->
+# 打包前端页面
 npm run build
-<!-- 启动服务-->
+# 启动服务
 npm start
 ```
 
