@@ -1,7 +1,23 @@
 <template>
   <div style="padding:20px">
+    <select style="margin:5px;">
+      <optgroup label="接口测试">
+        <option selected>Method</option>
+        <option>header设置</option>
+        <option>验证</option>
+      </optgroup>
+      <optgroup label="变量">
+        <option>变量</option>
+        <option>环境变量</option>
+      </optgroup>
+    </select>
     <div id="monaco" style="height:400px"></div>
+    <div style="margin:5px;">
+      <span>环境变量：</span>
+      <textarea rows="3" cols="50" placeholder="key=value" v-model="env"></textarea>
+    </div>
     <button v-on:click="run">运行</button>
+
     <pre>{{log}}</pre>
   </div>
 </template>
@@ -14,9 +30,11 @@ export default {
     run() {
       this.log = "执行中......";
       var code = this.monacoInstance.getValue();
+
+      var env = this.env.replace("\r", "").split("\n");
       fetch("/home", {
         method: "POST", // or 'PUT'
-        body: JSON.stringify({ code }), // data can be `string` or {object}!
+        body: JSON.stringify({ code: code, env: env }), // data can be `string` or {object}!
         headers: new Headers({
           "Content-Type": "application/json"
         })
@@ -45,42 +63,45 @@ export default {
     const body = await response.text();
 
     console.log(body);
-
+    console.log(process.env.key)
    
 })();`,
         language: "javascript"
       }
     );
 
-    monaco.languages.registerCompletionItemProvider("javascript", {
-      triggerCharacters: ["."], // 写触发提示的字符，可以有多个
-      provideCompletionItems: function(model, position) {
-        const lineContent = model.getLineContent(position.lineNumber);
-        var word = lineContent.substr(lineContent.length - 4, 4);
+    //注册提示信息
+    // monaco.languages.registerCompletionItemProvider("javascript", {
+    //   triggerCharacters: ["."], // 写触发提示的字符，可以有多个
+    //   provideCompletionItems: function(model, position) {
+    //     const lineContent = model.getLineContent(position.lineNumber);
+    //     var word = lineContent.substr(lineContent.length - 4, 4);
 
-        if (word == "res.") {
-          return {
-            suggestions: [
-              {
-                label: "asdadad",
-                kind: monaco.languages.CompletionItemKind.Function,
-                documentation: "cesishisjsj",
-                insertText: "asdadad"
-              }
-            ]
-          };
-        } else {
-          return {};
-        }
-      }
-    });
+    //     if (word == "res.") {
+    //       return {
+    //         suggestions: [
+    //           {
+    //             label: "asdadad",
+    //             kind: monaco.languages.CompletionItemKind.Function,
+    //             documentation: "cesishisjsj",
+    //             insertText: "asdadad"
+    //           }
+    //         ]
+    //       };
+    //     } else {
+    //       return {};
+    //     }
+    //   }
+    // });
+
     window.monacoInstance = monacoInstance;
     this.monacoInstance = monacoInstance;
     // monacoInstance.dispose(); //使用完成销毁实例
   },
   data() {
     return {
-      log: ""
+      log: "",
+      env: ""
     };
   }
 };
