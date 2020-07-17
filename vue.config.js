@@ -1,5 +1,5 @@
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     publicPath: "./",
@@ -22,7 +22,7 @@ module.exports = {
     configureWebpack: {
         plugins: [
             new MonacoWebpackPlugin(),
-            new CopyPlugin([
+            new CopyWebpackPlugin([
                 {
                     from: './node_modules/blockly/media',
                     to: 'media'

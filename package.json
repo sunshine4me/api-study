@@ -16,9 +16,12 @@
     "express": "^4.17.1",
     "http-errors": "^1.7.3",
     "morgan": "^1.10.0",
+    "sequelize": "^6.3.3",
+    "sqlite": "^4.0.11",
     "uuid": "^8.2.0"
   },
   "devDependencies": {
+    "element-ui": "^2.13.2",
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-eslint": "~4.4.0",
     "@vue/cli-plugin-router": "~4.4.0",

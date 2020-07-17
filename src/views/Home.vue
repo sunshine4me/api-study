@@ -1,9 +1,9 @@
 <template>
   <div style="padding:20px">
-    <select style="margin:5px;">
+    <select style="margin:5px;" @change="changeTemplate($event)">
       <optgroup label="接口测试">
-        <option selected>Method</option>
-        <option>header设置</option>
+        <option value="1" selected>Method</option>
+        <option value="2">header设置</option>
         <option>验证</option>
       </optgroup>
       <optgroup label="变量">
@@ -27,6 +27,18 @@
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api.js";
 export default {
   methods: {
+    changeTemplate(e) {
+      switch (e.target.value) {
+        case "1":
+          this.select1();
+          break;
+        case "2":
+          this.select2();
+          break;
+        default:
+          console.log(3);
+      }
+    },
     run() {
       this.log = "执行中......";
       var code = this.monacoInstance.getValue();
@@ -48,7 +60,28 @@ export default {
         .then(response => {
           this.log = response;
         });
-    }
+    },
+    select1() {
+      this.monacoInstance.setValue(`const fetch = require('node-fetch');
+(async () => {
+    const response = await fetch('https://testerhome222.com/');
+    const body = await response.text();
+
+    console.log(process.env.GRUNT_PATH)
+
+})();`);
+    },
+    select2() {
+      this.monacoInstance.setValue(`const fetch = require('node-fetch');
+(async () => {
+    const response = await fetch('https://testerhome333.com/');
+    const body = await response.text();
+
+    console.log(process.env.GRUNT_PATH)
+
+})();`);
+    },
+    select3() {}
   },
   mounted() {
     console.log(111);
@@ -94,7 +127,7 @@ export default {
     //   }
     // });
 
-    window.monacoInstance = monacoInstance;
+    // window.monacoInstance = monacoInstance;
     this.monacoInstance = monacoInstance;
     // monacoInstance.dispose(); //使用完成销毁实例
   },
