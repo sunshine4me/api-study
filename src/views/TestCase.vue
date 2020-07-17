@@ -7,9 +7,13 @@
       <el-col :span="18">
         <el-tabs v-model="editableTabsName" type="card" closable>
           <el-tab-pane v-for="(item) in editableTabs" :key="item.name" :label="item.title" :name="item.name">
-           <Editor></Editor>
+            <Editor></Editor>
+            <el-row type="flex" justify="end" style="padding:5px">
+              <el-button type="primary">保存</el-button>
+            </el-row>
           </el-tab-pane>
         </el-tabs>
+
       </el-col>
     </el-row>
   </div>
@@ -91,6 +95,10 @@ export default {
   },
   methods: {
     handleNodeClick(data) {
+      for (var tab of this.editableTabs) {
+        if (tab.name == data.label) return;
+      }
+
       this.editableTabs.push({
         title: data.label,
         name: data.label,
@@ -101,5 +109,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+.el-tabs__header {
+    margin: 2px;
+}
 </style>

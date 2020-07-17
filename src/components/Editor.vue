@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div ref="monaco" style="height:400px"></div>
+    <div ref="monaco" style="height:450px"></div>
   </div>
 </template>
 
