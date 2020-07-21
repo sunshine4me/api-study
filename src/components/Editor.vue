@@ -9,7 +9,7 @@ import * as monaco from "monaco-editor/esm/vs/editor/editor.api.js";
 export default {
   name: 'Editor',
   props: {
-    msg: String
+    code: String
   },
   mounted() {
 
@@ -17,16 +17,7 @@ export default {
       this.$refs.monaco,
       {
         theme: "vs-dark",
-        value: `const fetch = require('node-fetch');
-
-(async () => {
-    const response = await fetch('https://www.baidu.com/');
-    const body = await response.text();
-
-    console.log(body);
-    console.log(process.env.key)
-   
-})();`,
+        value: this.code,
         language: "javascript"
       }
     );
