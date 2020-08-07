@@ -1,12 +1,26 @@
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
+const path = require('path')
+
+function resolve(dir) {
+    return path.join(__dirname, dir)
+}
+
 module.exports = {
     publicPath: "./",
     productionSourceMap: false,
     outputDir: "./lib/public",
     devServer: {
         proxy: 'http://localhost:3000'
+    },
+    configureWebpack: {
+        name: "name",
+        resolve: {
+            alias: {
+                '@': resolve('src')
+            }
+        }
     },
     pages: {
         index: {
@@ -18,17 +32,6 @@ module.exports = {
             // 在 dist/index.html 的输出
             filename: 'index.html'
         }
-    },
-    configureWebpack: {
-        plugins: [
-            new MonacoWebpackPlugin(),
-            new CopyWebpackPlugin([
-                {
-                    from: './node_modules/blockly/media',
-                    to: 'media'
-                }
-            ])
-        ]
     }
 
 }

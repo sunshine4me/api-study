@@ -11,17 +11,24 @@
     "buildDocker": "cd ./engine/nodejs; docker build -t sunshine4me/node_engine ."
   },
   "dependencies": {
-    "cookie-session": "^1.4.0",
     "debug": "^4.1.1",
     "express": "^4.17.1",
     "http-errors": "^1.7.3",
     "morgan": "^1.10.0",
+    "jws": "^3.2.2",
+    "nprogress": "^0.2.0",
     "sequelize": "^6.3.3",
     "sqlite": "^4.0.11",
     "sqlite3": "^5.0.0",
-    "uuid": "^8.2.0"
+    "uuid": "^8.2.0",
+    "vuex": "^3.5.1"
   },
   "devDependencies": {
+    "normalize.css": "7.0.0",
+    "js-cookie": "^2.2.1",
+    "sass": "1.26.8",
+    "sass-loader": "8.0.2",
+    "axios": "0.18.1",
     "element-ui": "^2.13.2",
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-eslint": "~4.4.0",
