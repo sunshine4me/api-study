@@ -28,7 +28,7 @@
     "js-cookie": "^2.2.1",
     "sass": "1.26.8",
     "sass-loader": "8.0.2",
-    "axios": "0.18.1",
+    "axios": "0.21.1",
     "element-ui": "^2.13.2",
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-eslint": "~4.4.0",
